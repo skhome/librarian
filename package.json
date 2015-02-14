@@ -1,6 +1,6 @@
 {
   "name": "librarian",
-  "description": "SEAN (SQLite, Express, AngularJS, Node) - A little helper to manage a team book library",
+  "description": "MEAN (Mongoose, Express, AngularJS, Node) - A little helper to manage a team book library",
   "version": "0.0.1",
   "private": true,
   "author": {
