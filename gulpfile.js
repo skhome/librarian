@@ -4,13 +4,14 @@
 //            LOAD CORE MODULES
 // =============================================
 
-var fs      = require('fs'),
-    argv    = require('yargs').argv,
-    gulp    = require('gulp'),
-    semver  = require('semver'),
-    browser = require('tiny-lr')();
-// wiredep     = require('wiredep').stream,
-// changelog   = require('conventional-changelog'),
+var fs        = require('fs'),
+    pkg       = require('./package.json'),
+    argv      = require('yargs').argv,
+    gulp      = require('gulp'),
+    semver    = require('semver'),
+    browser   = require('tiny-lr')(),
+    // wiredep     = require('wiredep').stream,
+    changelog = require('conventional-changelog');
 // runSequence = require('run-sequence');
 
 // =============================================
@@ -111,3 +112,21 @@ gulp.task('server:hint', 'Hint server JavaScripts files', function () {
         .pipe(gulpif(!isWatching, jshint.reporter('fail')))
         .pipe(refresh(browser));
 });
+
+// =============================================
+//                MAIN TASKS
+// =============================================
+
+gulp.task('changelog', 'Generate changelog', function (callback) {
+    changelog({
+        version: pkg.version,
+        repository: pkg.repository.url
+    }, function (err, data) {
+        if (err) {
+            gutil.log(COLORS.red('Error: Failed to generate changelog ' + err));
+            return process.exit(1);
+        }
+        fs.writeFileSync('CHANGELOG.md', data, callback());
+    });
+});
+
