@@ -4,7 +4,7 @@
 /**
  * module dependencies
  */
-var pkg     = require('./../package.json'),
+var pkg     = require('../../package.json'),
     config  = require('./config/config'),
     colors  = require('colors'),
     logger  = require('mm-node-logger')(module),

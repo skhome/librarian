@@ -8,7 +8,7 @@ var fs        = require('fs'),
     pkg       = require('./package.json'),
     argv      = require('yargs').argv,
     gulp      = require('gulp'),
-    semver    = require('semver'),
+    // semver    = require('semver'),
     browser   = require('tiny-lr')(),
     // wiredep     = require('wiredep').stream,
     changelog = require('conventional-changelog');
@@ -20,6 +20,7 @@ var fs        = require('fs'),
 
 var size        = require('gulp-size'),
     jscs        = require('gulp-jscs'),
+    mocha       = require('gulp-mocha'),
     gutil       = require('gulp-util'),
     gulpif      = require('gulp-if'),
     jshint      = require('gulp-jshint'),
@@ -92,7 +93,14 @@ var paths = {
         basePath: 'server',
         jshintrc: 'server/.jshintrc',
         jscsrc: 'server/.jscsrc',
-        scripts: 'server/**/*.js'
+        scripts: 'server/**/*.js',
+
+        test: {
+            unit: 'server/**/*.spec.js',
+            mocha: {
+                reporter: 'spec'
+            }
+        }
     }
 
 };
@@ -111,6 +119,11 @@ gulp.task('server:hint', 'Hint server JavaScripts files', function () {
         .pipe(jshint.reporter('jshint-stylish'))
         .pipe(gulpif(!isWatching, jshint.reporter('fail')))
         .pipe(refresh(browser));
+});
+
+gulp.task('server:unit-test', 'Run unit tests on server sources', function () {
+    gulp.src(paths.server.test.unit, { read: false })
+        .pipe(mocha(paths.server.test.mocha));
 });
 
 // =============================================
