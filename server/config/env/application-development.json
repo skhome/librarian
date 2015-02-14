@@ -1,0 +1,18 @@
+{
+  "environment": "development",
+  "security": {
+    "stacktrace": true
+  },
+  "server": {
+    "port": 8080,
+    "caching": false
+  },
+  "mongodb": {
+    "dbURI": "mongodb://localhost/lib",
+    "dbOptions": {
+      "user": "",
+      "pass": ""
+    }
+  },
+  "site": "../../site"
+}

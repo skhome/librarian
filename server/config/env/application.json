@@ -1,0 +1,9 @@
+{
+  "security": {
+    "stacktrace": false
+  },
+  "server": {
+    "port": 80,
+    "caching": true
+  }
+}
