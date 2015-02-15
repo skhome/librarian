@@ -111,4 +111,56 @@ describe('user model', function () {
 
     });
 
+    describe('email', function () {
+
+        it('should persist', function (done) {
+            var user = new UserBuilder().withDefaultValues().withEmail('foo@domain.net').build();
+            user.create().then(function (savedUser) {
+                expect(savedUser.email).to.equal('foo@domain.net');
+                done();
+            }).catch(done);
+        });
+
+        it('should reject undefined', function (done) {
+            var user = new UserBuilder().withDefaultValues().withEmail(undefined).build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.email).to.exist;
+                expect(error.errors.email).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+        it('should reject null', function (done) {
+            var user = new UserBuilder().withDefaultValues().withEmail(null).build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.email).to.exist;
+                expect(error.errors.email).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+        it('should reject empty', function (done) {
+            var user = new UserBuilder().withDefaultValues().withEmail('').build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.email).to.exist;
+                expect(error.errors.email).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+        it('should reject blank', function (done) {
+            var user = new UserBuilder().withDefaultValues().withEmail('  ').build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.email).to.exist;
+                expect(error.errors.email).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+    });
+
 });

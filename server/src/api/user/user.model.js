@@ -8,15 +8,8 @@ var q        = require('q'),
     mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
-var SALT_WORK_FACTOR = 10,
-    authTypes        = [ 'github', 'twitter', 'facebook', 'google' ];
+var SALT_WORK_FACTOR = 10;
 
-/**
- * validation of local strategy properties
- */
-var validateLocalStrategyProperty = function (property) {
-    return ((this.provider !== 'local' && !this.updated) || property.length);
-};
 /**
  * validation of local strategy password
  */
@@ -41,7 +34,6 @@ var UserSchema     = new Schema({
         unique: true,
         required: true,
         lowercase: true,
-        validate: [ validateLocalStrategyProperty, 'Please fill in your email.' ],
         match: [ /.+@.+\..+/, 'Please fill in a valid email address.' ]
     },
     password: {
@@ -83,40 +75,6 @@ UserSchema
                  'role': this.role
              };
          });
-
-/**
- * validate email, if you are not authenticated by any of the OAuth strategies.
- */
-UserSchema
-    .path('email')
-    .validate(function (email) {
-                  if (authTypes.indexOf(this.provider) !== -1) {
-                      return true;
-                  }
-                  return email.length;
-              }, 'Email cannot be blank');
-
-/**
- * validate that email is unique
- */
-UserSchema
-    .path('email')
-    .validate(function (value, respond) {
-                  var self = this;
-                  this.constructor.findOne({ email: value }, function (error, user) {
-                      if (error) {
-                          throw error;
-                      }
-
-                      if (user) {
-                          if (self.id === user.id) {
-                              return respond(true);
-                          }
-                          return respond(false);
-                      }
-                      respond(true);
-                  });
-              }, 'The specified email address is already in use.');
 
 /**
  * encrypt the password

@@ -18,6 +18,11 @@ module.exports = function () {
         return builder;
     };
 
+    builder.withEmail = function (newEmail) {
+        email = newEmail;
+        return builder;
+    };
+
     builder.withDefaultValues = function () {
         firstName = 'Scott';
         lastName = 'Hobson';

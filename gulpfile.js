@@ -25,6 +25,7 @@ var size        = require('gulp-size'),
     gulpif      = require('gulp-if'),
     jshint      = require('gulp-jshint'),
     refresh     = require('gulp-livereload'),
+    istanbul    = require('gulp-istanbul'),
     jscsStylish = require('gulp-jscs-stylish');
 
 // initialize gulp task help
@@ -35,15 +36,15 @@ require('gulp-help')(gulp);
 // =============================================
 
 // other constants
-var ENV      = !!argv.env ? argv.env : 'development',
-    COLORS   = gutil.colors;
+var ENV    = !!argv.env ? argv.env : 'development',
+    COLORS = gutil.colors;
 
 // =============================================
 //            DECLARE VARIABLES
 // =============================================
 
-var isWatching    = false,
-    noop          = function () {
+var isWatching = false,
+    noop       = function () {
     };
 
 
@@ -67,23 +68,31 @@ gutil.log(COLORS.cyan('********** RUNNING IN ' + ENV + ' ENVIRONMENT **********'
 //              DECLARE PATHS
 // =============================================
 
-var paths = {
-
-    server: {
-        basePath: 'server',
-        jshintrc: 'server/src/.jshintrc',
-        jscsrc: 'server/.jscsrc',
-        scripts: 'server/src/**/*.js',
-
-        test: {
-            unit: 'server/test/**/*.js',
-            mocha: {
-                reporter: 'spec'
+var paths   = {
+        server: {
+            basePath: 'server',
+            jshintrc: 'server/src/.jshintrc',
+            jscsrc: 'server/.jscsrc',
+            scripts: 'server/src/**/*.js',
+            test: {
+                unit: 'server/test/**/*.js'
             }
         }
-    }
+    },
+    options = {
+        mocha: {
+            reporter: 'spec'
+        },
+        istanbul: {
+            instrument: {
+                includeUntested: true
+            },
+            report: {
+                dir: './build/coverage'
+            }
+        }
 
-};
+    };
 
 
 // =============================================
@@ -101,9 +110,17 @@ gulp.task('server:hint', 'Hint server JavaScripts files', function () {
         .pipe(refresh(browser));
 });
 
-gulp.task('server:test', 'Run tests on server sources', [ 'server:hint' ], function () {
-    gulp.src(paths.server.test.unit, { read: false })
-        .pipe(mocha(paths.server.test.mocha));
+gulp.task('server:test', 'Run tests on server sources', [ 'server:hint' ], function (done) {
+    gulp.src(paths.server.scripts)
+        .pipe(istanbul(options.istanbul.instrument))
+        .pipe(istanbul.hookRequire())
+        .on('finish', function () {
+                gulp.src(paths.server.test.unit)
+                    .pipe(mocha(options.mocha))
+                    .pipe(istanbul.writeReports(options.istanbul.report))
+                    .on('end', done);
+            });
+
 });
 
 // =============================================
