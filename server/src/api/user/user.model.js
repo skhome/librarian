@@ -11,12 +11,8 @@ var q        = require('q'),
 var SALT_WORK_FACTOR = 10;
 
 /**
- * validation of local strategy password
+ * Defines the schema for user objects.
  */
-var validateLocalStrategyPassword = function (password) {
-    return (this.provider !== 'local' || (password && password.length > 6));
-};
-
 var UserSchema     = new Schema({
     firstName: {
         type: String,
@@ -38,12 +34,14 @@ var UserSchema     = new Schema({
     },
     password: {
         type: String,
+        trim: true,
         required: true,
-        validate: [ validateLocalStrategyPassword, 'Password should be longer.' ]
+        match: [ /.{6,}/, 'Please enter at least 6 characters.' ]
     },
     provider: {
         type: String,
-        required: 'Provider is required'
+        trim: true,
+        required: true
     },
     authorities: {
         type: Array
@@ -64,17 +62,6 @@ var UserSchema     = new Schema({
     google: {}
 });
 
-/**
- * public profile information
- */
-UserSchema
-    .virtual('profile')
-    .get(function () {
-             return {
-                 'firstName': this.firstName,
-                 'role': this.role
-             };
-         });
 
 /**
  * encrypt the password
@@ -130,6 +117,23 @@ UserSchema.methods = {
     },
 
     /**
+     * Updates an existing user in the database.
+     *
+     * @returns {Object} promise
+     */
+    update: function () {
+        var deferred = q.defer();
+        this.save(function (error, user) {
+            if (error) {
+                deferred.reject(error);
+            } else {
+                deferred.resolve(user);
+            }
+        });
+        return deferred.promise;
+    },
+
+    /**
      * Check if the passwords are the same
      *
      * @param {String} password
@@ -156,11 +160,17 @@ UserSchema.statics = {
 
     /**
      * Returns all users from the database.
-     *
-     * @returns {Promise}
      */
     findAll: function () {
-        return this.findQ();
+        var deferred = q.defer();
+        this.find({}, function (error, users) {
+            if (error) {
+                deferred.reject(error);
+            } else {
+                deferred.resolve(users);
+            }
+        });
+        return deferred.promise;
     }
 };
 

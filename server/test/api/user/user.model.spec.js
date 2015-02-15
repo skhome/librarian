@@ -1,9 +1,12 @@
 'use strict';
 
-var mongoose       = require('../../mongoose'),
-    ValidatorError = mongoose.Error.ValidatorError,
+var q              = require('q'),
+    User           = require('../../../src/api/user/user.model'),
+    expect         = require('chai').expect,
+    mongoose       = require('../../mongoose'),
     UserBuilder    = require('./user.model.builder'),
-    expect         = require('chai').expect;
+    ValidatorError = mongoose.Error.ValidatorError;
+
 
 describe('user model', function () {
 
@@ -161,6 +164,184 @@ describe('user model', function () {
             });
         });
 
+        it('should reject invalid email', function (done) {
+            var user = new UserBuilder().withDefaultValues().withEmail('aa@bb').build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.email).to.exist;
+                expect(error.errors.email).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+    });
+
+    describe('password', function () {
+
+        it('should persist encrypted', function (done) {
+            var user = new UserBuilder().withDefaultValues().withPassword('insecure').build();
+            user.create().then(function (savedUser) {
+                expect(savedUser.password).to.not.equal('insecure');
+                done();
+            }).catch(done);
+        });
+
+        it('should reject undefined', function (done) {
+            var user = new UserBuilder().withDefaultValues().withPassword(undefined).build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.password).to.exist;
+                expect(error.errors.password).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+        it('should reject null', function (done) {
+            var user = new UserBuilder().withDefaultValues().withPassword(null).build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.password).to.exist;
+                expect(error.errors.password).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+        it('should reject empty', function (done) {
+            var user = new UserBuilder().withDefaultValues().withPassword('').build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.password).to.exist;
+                expect(error.errors.password).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+        it('should reject blank', function (done) {
+            var user = new UserBuilder().withDefaultValues().withPassword('  ').build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.password).to.exist;
+                expect(error.errors.password).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+        it('should have at least 6 characters', function (done) {
+            var user = new UserBuilder().withDefaultValues().withPassword('abc').build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.password).to.exist;
+                expect(error.errors.password).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+        it('should not hash password again', function (done) {
+            var user = new UserBuilder().withDefaultValues().withPassword('insecure').build();
+            user.create().then(function (user) {
+                var hashedPassword = user.password;
+                user.update().then(function (user) {
+                    expect(user.password).to.equal(hashedPassword);
+                    done();
+                });
+            });
+        });
+
+    });
+
+    describe('provider', function () {
+
+        it('should persist', function (done) {
+            var user = new UserBuilder().withDefaultValues().withProvider('github').build();
+            user.create().then(function (savedUser) {
+                expect(savedUser.provider).to.equal('github');
+                done();
+            }).catch(done);
+        });
+
+        it('should reject undefined', function (done) {
+            var user = new UserBuilder().withDefaultValues().withProvider(undefined).build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.provider).to.exist;
+                expect(error.errors.provider).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+        it('should reject null', function (done) {
+            var user = new UserBuilder().withDefaultValues().withProvider(null).build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.provider).to.exist;
+                expect(error.errors.provider).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+        it('should reject empty', function (done) {
+            var user = new UserBuilder().withDefaultValues().withProvider('').build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.provider).to.exist;
+                expect(error.errors.provider).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+        it('should reject blank', function (done) {
+            var user = new UserBuilder().withDefaultValues().withProvider('  ').build();
+            user.create().catch(function (error) {
+                expect(error.name).to.equal('ValidationError');
+                expect(error.errors.provider).to.exist;
+                expect(error.errors.provider).to.be.an.instanceof(ValidatorError);
+                done();
+            });
+        });
+
+    });
+
+    describe('compare password', function () {
+
+        it('should be equal', function (done) {
+            var user = new UserBuilder().withDefaultValues().withPassword('password').build();
+            user.create().then(function (user) {
+                user.comparePassword('password').then(function (result) {
+                    expect(result).to.be.true;
+                    done();
+                });
+            });
+        });
+
+        it('should not be equal', function (done) {
+            var user = new UserBuilder().withDefaultValues().withPassword('password').build();
+            user.create().then(function (user) {
+                user.comparePassword('somethingelse').then(function (result) {
+                    expect(result).to.be.false;
+                    done();
+                });
+            });
+        });
+
+    });
+
+    describe('find all', function () {
+
+        beforeEach(function (done) {
+            var userOne = new UserBuilder().withDefaultValues().withEmail('aa@server.com').build();
+            var userTwo = new UserBuilder().withDefaultValues().withEmail('bb@server.com').build();
+            q.all([ userOne.create(), userTwo.create() ]).then(function () {
+                done();
+            }).catch(done);
+        });
+
+        it('should return all stored users', function (done) {
+            User.findAll().then(function (users) {
+                expect(users).to.be.an('array');
+                expect(users).to.have.length(2);
+                done();
+            }).catch(done);
+        });
     });
 
 });

@@ -23,11 +23,21 @@ module.exports = function () {
         return builder;
     };
 
+    builder.withPassword = function (newPassword) {
+        password = newPassword;
+        return builder;
+    };
+
+    builder.withProvider = function (newProvider) {
+        provider = newProvider;
+        return builder;
+    };
+
     builder.withDefaultValues = function () {
-        firstName = 'Scott';
-        lastName = 'Hobson';
-        email = 'ScottVHobson@cuvox.de';
-        password = 'xiyi2wooCai';
+        firstName = 'James';
+        lastName = 'Kirk';
+        email = 'jimkirk@starfleet.com';
+        password = 'enterprise';
         provider = 'local';
         authorities = [];
         return builder;

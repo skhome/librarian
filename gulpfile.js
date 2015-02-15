@@ -81,7 +81,8 @@ var paths   = {
     },
     options = {
         mocha: {
-            reporter: 'spec'
+            reporter: 'spec',
+            slow: 1000
         },
         istanbul: {
             instrument: {
