@@ -24,7 +24,6 @@
     "mm-mongoose-connection": "0.0.4",
     "mm-node-logger": "0.0.1",
     "mongoose": "3.8.3",
-    "mongoose-q": "0.0.14",
     "morgan": "1.5.x",
     "nconf": "^0.7.1",
     "passport": "^0.2.1",
@@ -49,6 +48,9 @@
     "jshint-stylish": "^1.0.0",
     "semver": "^4.3.0",
     "tiny-lr": "^0.1.5"
+  },
+  "scripts": {
+    "test": "gulp server:test"
   },
   "engines": {
     "node": ">=0.10",

@@ -8,7 +8,7 @@
     "caching": false
   },
   "mongodb": {
-    "dbURI": "mongodb://localhost/lib",
+    "dbURI": "mongodb://127.0.0.1/lib",
     "dbOptions": {
       "user": "",
       "pass": ""

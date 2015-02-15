@@ -34,30 +34,15 @@ require('gulp-help')(gulp);
 //            DECLARE CONSTANTS
 // =============================================
 
-// environment constants
-var PRODUCTION_URL     = 'http://librarian.herokuapp.com',
-    DEVELOPMENT_URL    = 'http://127.0.0.1:3000',
-    PRODUCTION_CDN_URL = 'http://127.0.0.1:5000';
-
 // other constants
 var ENV      = !!argv.env ? argv.env : 'development',
-    COLORS   = gutil.colors,
-    BROWSERS = !!argv.browsers ? argv.browsers : 'PhantomJS';
-// CDN_BASE             = !!argv.nocdn ? DEVELOPMENT_URL : PRODUCTION_CDN_URL,
-// MODULE_NAME          = pkg.name,
-// API_VERSION          = '1.0',
-// GIT_REMOTE_URL       = 'https://' + process.env.GH_TOKEN + '@github.com/martinmicunda/employee-scheduling.git',
-// LIVERELOAD_PORT      = 35729,
-// TEMPLATE_BASE_PATH   = 'app',
-// BUILD_WITHOUT_TEST   = !!argv.notest ? true : false,
-// APPLICATION_BASE_URL = ENV === 'development' ? DEVELOPMENT_URL : PRODUCTION_URL;
+    COLORS   = gutil.colors;
 
 // =============================================
 //            DECLARE VARIABLES
 // =============================================
 
-var hasGitChanges = '',
-    isWatching    = false,
+var isWatching    = false,
     noop          = function () {
     };
 
@@ -68,11 +53,6 @@ var hasGitChanges = '',
 
 if (!ENV.match(new RegExp(/production|development/))) {
     gutil.log(COLORS.red('Error: The argument \'env\' has incorrect value \'' + ENV + '\'! Usage: gulp test:unit --env=(development|production)'));
-    return process.exit(1);
-}
-
-if (!BROWSERS.match(new RegExp(/PhantomJS|Chrome|Firefox|Safari/))) {
-    gutil.log(COLORS.red('Error: The argument \'browsers\' has incorrect value \'' + BROWSERS + '\'! Usage: gulp test:unit --env=(PhantomJS|Chrome|Firefox|Safari)'));
     return process.exit(1);
 }
 
@@ -91,12 +71,12 @@ var paths = {
 
     server: {
         basePath: 'server',
-        jshintrc: 'server/.jshintrc',
+        jshintrc: 'server/src/.jshintrc',
         jscsrc: 'server/.jscsrc',
-        scripts: 'server/**/*.js',
+        scripts: 'server/src/**/*.js',
 
         test: {
-            unit: 'server/**/*.spec.js',
+            unit: 'server/test/**/*.js',
             mocha: {
                 reporter: 'spec'
             }
@@ -121,7 +101,7 @@ gulp.task('server:hint', 'Hint server JavaScripts files', function () {
         .pipe(refresh(browser));
 });
 
-gulp.task('server:unit-test', 'Run unit tests on server sources', function () {
+gulp.task('server:test', 'Run tests on server sources', [ 'server:hint' ], function () {
     gulp.src(paths.server.test.unit, { read: false })
         .pipe(mocha(paths.server.test.mocha));
 });

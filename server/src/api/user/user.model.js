@@ -5,7 +5,7 @@
  */
 var q        = require('q'),
     bcrypt   = require('bcryptjs'),
-    mongoose = require('mongoose-q')(),
+    mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
 var SALT_WORK_FACTOR = 10,
@@ -28,14 +28,12 @@ var UserSchema     = new Schema({
     firstName: {
         type: String,
         trim: true,
-        required: true,
-        validate: [ validateLocalStrategyProperty, 'Please fill in your first name.' ]
+        required: true
     },
     lastName: {
         type: String,
         trim: true,
-        required: true,
-        validate: [ validateLocalStrategyProperty, 'Please fill in your last name.' ]
+        required: true
     },
     email: {
         type: String,
@@ -158,9 +156,19 @@ UserSchema.methods = {
 
     /**
      * Stores a new user in the database.
+     *
+     * @returns {Object} promise
      */
     create: function () {
-        return this.saveQ();
+        var deferred = q.defer();
+        this.save(function (error, user) {
+            if (error) {
+                deferred.reject(error);
+            } else {
+                deferred.resolve(user);
+            }
+        });
+        return deferred.promise;
     },
 
     /**
@@ -168,7 +176,7 @@ UserSchema.methods = {
      *
      * @param {String} password
      *
-     * @returns {Promise}
+     * @returns {Object} promise
      */
     comparePassword: function (password) {
         var deferred = q.defer();
