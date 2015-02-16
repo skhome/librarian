@@ -104,7 +104,7 @@ UserSchema.methods = {
      *
      * @returns {Object} promise
      */
-    create: function () {
+    doSave: function () {
         var deferred = q.defer();
         this.save(function (error, user) {
             if (error) {
@@ -117,30 +117,13 @@ UserSchema.methods = {
     },
 
     /**
-     * Updates an existing user in the database.
-     *
-     * @returns {Object} promise
-     */
-    update: function () {
-        var deferred = q.defer();
-        this.save(function (error, user) {
-            if (error) {
-                deferred.reject(error);
-            } else {
-                deferred.resolve(user);
-            }
-        });
-        return deferred.promise;
-    },
-
-    /**
-     * Check if the passwords are the same
+     * Check if the passwords are the same.
      *
      * @param {String} password
      *
      * @returns {Object} promise
      */
-    comparePassword: function (password) {
+    doComparePassword: function (password) {
         var deferred = q.defer();
         bcrypt.compare(password, this.password, function (error, isMatch) {
             if (error) {

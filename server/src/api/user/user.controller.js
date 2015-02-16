@@ -22,7 +22,7 @@ exports.create    = function (request, response) {
     user.provider = 'local';
     user.authorities = [ 'USER' ];
 
-    user.create()
+    user.doSave()
         .then(function (user) {
             var resource = assembler.toResource(user);
             response.status(201).location(resource.links.self).json(resource);
