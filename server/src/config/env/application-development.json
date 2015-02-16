@@ -5,7 +5,8 @@
   },
   "server": {
     "port": 8080,
-    "caching": false
+    "caching": false,
+    "logging": false
   },
   "mongodb": {
     "dbURI": "mongodb://127.0.0.1/lib",

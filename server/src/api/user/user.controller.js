@@ -29,10 +29,8 @@ exports.create    = function (request, response) {
         })
         .catch(function (error) {
             if (error.name === 'ValidationError') {
-                logger.info(error);
                 response.status(400);
             } else {
-                logger.error(error);
                 response.status(500);
             }
             response.json(error);

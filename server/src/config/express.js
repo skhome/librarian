@@ -18,7 +18,9 @@ function configureStacktraceInclusion (app) {
 }
 
 function configureLogging (app) {
-    app.use(morgan('dev'));
+    if (config.get('server:logging')) {
+        app.use(morgan('dev'));
+    }
 }
 
 function configurePayloadParsing (app) {

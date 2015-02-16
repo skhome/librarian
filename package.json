@@ -51,6 +51,7 @@
     "semver": "^4.3.0",
     "sinon": "^1.12.2",
     "sinon-chai": "^2.7.0",
+    "supertest-as-promised": "^1.0.0",
     "tiny-lr": "^0.1.5"
   },
   "scripts": {
