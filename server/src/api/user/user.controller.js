@@ -4,7 +4,6 @@
  * module dependencies
  */
 var User          = require('./user.model'),
-    logger        = require('mm-node-logger')(module),
     UserAssembler = require('./user.assembler');
 
 
@@ -24,17 +23,17 @@ exports.create    = function (request, response) {
 
     user.doSave()
         .then(function (user) {
-            var resource = assembler.toResource(user);
-            response.status(201).location(resource.links.self).json(resource);
-        })
+                  var resource = assembler.toResource(user);
+                  response.status(201).location(resource.links.self).json(resource);
+              })
         .catch(function (error) {
-            if (error.name === 'ValidationError') {
-                response.status(400);
-            } else {
-                response.status(500);
-            }
-            response.json(error);
-        })
+                   if (error.name === 'ValidationError') {
+                       response.status(400);
+                   } else {
+                       response.status(500);
+                   }
+                   response.json(error);
+               })
         .done();
 };
 
@@ -50,10 +49,9 @@ exports.findAll   = function (request, response) {
 
     User.findAll()
         .then(function (users) {
-            response.json(assembler.toResources(users));
-        })
+                  response.json(assembler.toResources(users));
+              })
         .catch(function (error) {
-            logger.error(error);
-            response.status(500).json(error);
-        });
+                   response.status(500).json(error);
+               });
 };

@@ -2,37 +2,37 @@
 
 var sinon = require('sinon');
 
-module.exports = function () {
+module.exports = function UserResourceBuilder () {
 
     var builder = this,
         firstName, lastName, email, password, avatar;
 
-    builder.withFirstName = function (newFirstName) {
+    builder.firstName = function (newFirstName) {
         firstName = newFirstName;
         return builder;
     };
 
-    builder.withLastName = function (newLastName) {
+    builder.lastName = function (newLastName) {
         lastName = newLastName;
         return builder;
     };
 
-    builder.withEmail = function (newEmail) {
+    builder.email = function (newEmail) {
         email = newEmail;
         return builder;
     };
 
-    builder.withPassword = function (newPassword) {
+    builder.password = function (newPassword) {
         password = newPassword;
         return builder;
     };
 
-    builder.withAvatar = function (newAvatar) {
+    builder.avatar = function (newAvatar) {
         avatar = newAvatar;
         return builder;
     };
 
-    builder.withDefaultValues = function () {
+    builder.defaults = function () {
         firstName = 'James';
         lastName = 'Kirk';
         email = 'jimkirk@starfleet.com';

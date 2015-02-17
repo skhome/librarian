@@ -13,7 +13,7 @@ describe('user model', function () {
     describe('first name', function () {
 
         it('should persist', function (done) {
-            var user = new UserBuilder().withDefaultValues().withFirstName('Paul').build();
+            var user = new UserBuilder().defaults().firstName('Paul').build();
             user.doSave().then(function (savedUser) {
                 expect(savedUser.firstName).to.equal('Paul');
                 done();
@@ -21,7 +21,7 @@ describe('user model', function () {
         });
 
         it('should reject undefined', function (done) {
-            var user = new UserBuilder().withDefaultValues().withFirstName(undefined).build();
+            var user = new UserBuilder().defaults().firstName(undefined).build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.firstName).to.exist;
@@ -31,7 +31,7 @@ describe('user model', function () {
         });
 
         it('should reject null', function (done) {
-            var user = new UserBuilder().withDefaultValues().withFirstName(null).build();
+            var user = new UserBuilder().defaults().firstName(null).build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.firstName).to.exist;
@@ -41,7 +41,7 @@ describe('user model', function () {
         });
 
         it('should reject empty', function (done) {
-            var user = new UserBuilder().withDefaultValues().withFirstName('').build();
+            var user = new UserBuilder().defaults().firstName('').build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.firstName).to.exist;
@@ -51,7 +51,7 @@ describe('user model', function () {
         });
 
         it('should reject blank', function (done) {
-            var user = new UserBuilder().withDefaultValues().withFirstName('  ').build();
+            var user = new UserBuilder().defaults().firstName('  ').build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.firstName).to.exist;
@@ -65,7 +65,7 @@ describe('user model', function () {
     describe('last name', function () {
 
         it('should persist', function (done) {
-            var user = new UserBuilder().withDefaultValues().withLastName('Williams').build();
+            var user = new UserBuilder().defaults().lastName('Williams').build();
             user.doSave().then(function (savedUser) {
                 expect(savedUser.lastName).to.equal('Williams');
                 done();
@@ -73,7 +73,7 @@ describe('user model', function () {
         });
 
         it('should reject undefined', function (done) {
-            var user = new UserBuilder().withDefaultValues().withLastName(undefined).build();
+            var user = new UserBuilder().defaults().lastName(undefined).build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.lastName).to.exist;
@@ -83,7 +83,7 @@ describe('user model', function () {
         });
 
         it('should reject null', function (done) {
-            var user = new UserBuilder().withDefaultValues().withLastName(null).build();
+            var user = new UserBuilder().defaults().lastName(null).build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.lastName).to.exist;
@@ -93,7 +93,7 @@ describe('user model', function () {
         });
 
         it('should reject empty', function (done) {
-            var user = new UserBuilder().withDefaultValues().withLastName('').build();
+            var user = new UserBuilder().defaults().lastName('').build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.lastName).to.exist;
@@ -103,7 +103,7 @@ describe('user model', function () {
         });
 
         it('should reject blank', function (done) {
-            var user = new UserBuilder().withDefaultValues().withLastName('  ').build();
+            var user = new UserBuilder().defaults().lastName('  ').build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.lastName).to.exist;
@@ -117,7 +117,7 @@ describe('user model', function () {
     describe('email', function () {
 
         it('should persist', function (done) {
-            var user = new UserBuilder().withDefaultValues().withEmail('foo@domain.net').build();
+            var user = new UserBuilder().defaults().email('foo@domain.net').build();
             user.doSave().then(function (savedUser) {
                 expect(savedUser.email).to.equal('foo@domain.net');
                 done();
@@ -125,7 +125,7 @@ describe('user model', function () {
         });
 
         it('should reject undefined', function (done) {
-            var user = new UserBuilder().withDefaultValues().withEmail(undefined).build();
+            var user = new UserBuilder().defaults().email(undefined).build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.email).to.exist;
@@ -135,7 +135,7 @@ describe('user model', function () {
         });
 
         it('should reject null', function (done) {
-            var user = new UserBuilder().withDefaultValues().withEmail(null).build();
+            var user = new UserBuilder().defaults().email(null).build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.email).to.exist;
@@ -145,7 +145,7 @@ describe('user model', function () {
         });
 
         it('should reject empty', function (done) {
-            var user = new UserBuilder().withDefaultValues().withEmail('').build();
+            var user = new UserBuilder().defaults().email('').build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.email).to.exist;
@@ -155,7 +155,7 @@ describe('user model', function () {
         });
 
         it('should reject blank', function (done) {
-            var user = new UserBuilder().withDefaultValues().withEmail('  ').build();
+            var user = new UserBuilder().defaults().email('  ').build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.email).to.exist;
@@ -165,7 +165,7 @@ describe('user model', function () {
         });
 
         it('should reject invalid email', function (done) {
-            var user = new UserBuilder().withDefaultValues().withEmail('aa@bb').build();
+            var user = new UserBuilder().defaults().email('aa@bb').build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.email).to.exist;
@@ -179,7 +179,7 @@ describe('user model', function () {
     describe('password', function () {
 
         it('should persist encrypted', function (done) {
-            var user = new UserBuilder().withDefaultValues().withPassword('insecure').build();
+            var user = new UserBuilder().defaults().password('insecure').build();
             user.doSave().then(function (savedUser) {
                 expect(savedUser.password).to.not.equal('insecure');
                 done();
@@ -187,7 +187,7 @@ describe('user model', function () {
         });
 
         it('should reject undefined', function (done) {
-            var user = new UserBuilder().withDefaultValues().withPassword(undefined).build();
+            var user = new UserBuilder().defaults().password(undefined).build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.password).to.exist;
@@ -197,7 +197,7 @@ describe('user model', function () {
         });
 
         it('should reject null', function (done) {
-            var user = new UserBuilder().withDefaultValues().withPassword(null).build();
+            var user = new UserBuilder().defaults().password(null).build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.password).to.exist;
@@ -207,7 +207,7 @@ describe('user model', function () {
         });
 
         it('should reject empty', function (done) {
-            var user = new UserBuilder().withDefaultValues().withPassword('').build();
+            var user = new UserBuilder().defaults().password('').build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.password).to.exist;
@@ -217,7 +217,7 @@ describe('user model', function () {
         });
 
         it('should reject blank', function (done) {
-            var user = new UserBuilder().withDefaultValues().withPassword('  ').build();
+            var user = new UserBuilder().defaults().password('  ').build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.password).to.exist;
@@ -227,7 +227,7 @@ describe('user model', function () {
         });
 
         it('should have at least 6 characters', function (done) {
-            var user = new UserBuilder().withDefaultValues().withPassword('abc').build();
+            var user = new UserBuilder().defaults().password('abc').build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.password).to.exist;
@@ -237,7 +237,7 @@ describe('user model', function () {
         });
 
         it('should not hash password again', function (done) {
-            var user = new UserBuilder().withDefaultValues().withPassword('insecure').build();
+            var user = new UserBuilder().defaults().password('insecure').build();
             user.doSave().then(function (user) {
                 var hashedPassword = user.password;
                 user.doSave().then(function (user) {
@@ -252,7 +252,7 @@ describe('user model', function () {
     describe('provider', function () {
 
         it('should persist', function (done) {
-            var user = new UserBuilder().withDefaultValues().withProvider('github').build();
+            var user = new UserBuilder().defaults().provider('github').build();
             user.doSave().then(function (savedUser) {
                 expect(savedUser.provider).to.equal('github');
                 done();
@@ -260,7 +260,7 @@ describe('user model', function () {
         });
 
         it('should reject undefined', function (done) {
-            var user = new UserBuilder().withDefaultValues().withProvider(undefined).build();
+            var user = new UserBuilder().defaults().provider(undefined).build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.provider).to.exist;
@@ -270,7 +270,7 @@ describe('user model', function () {
         });
 
         it('should reject null', function (done) {
-            var user = new UserBuilder().withDefaultValues().withProvider(null).build();
+            var user = new UserBuilder().defaults().provider(null).build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.provider).to.exist;
@@ -280,7 +280,7 @@ describe('user model', function () {
         });
 
         it('should reject empty', function (done) {
-            var user = new UserBuilder().withDefaultValues().withProvider('').build();
+            var user = new UserBuilder().defaults().provider('').build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.provider).to.exist;
@@ -290,7 +290,7 @@ describe('user model', function () {
         });
 
         it('should reject blank', function (done) {
-            var user = new UserBuilder().withDefaultValues().withProvider('  ').build();
+            var user = new UserBuilder().defaults().provider('  ').build();
             user.doSave().catch(function (error) {
                 expect(error.name).to.equal('ValidationError');
                 expect(error.errors.provider).to.exist;
@@ -304,7 +304,7 @@ describe('user model', function () {
     describe('compare password', function () {
 
         it('should be equal', function (done) {
-            var user = new UserBuilder().withDefaultValues().withPassword('password').build();
+            var user = new UserBuilder().defaults().password('password').build();
             user.doSave().then(function (user) {
                 user.doComparePassword('password').then(function (result) {
                     expect(result).to.be.true;
@@ -314,7 +314,7 @@ describe('user model', function () {
         });
 
         it('should not be equal', function (done) {
-            var user = new UserBuilder().withDefaultValues().withPassword('password').build();
+            var user = new UserBuilder().defaults().password('password').build();
             user.doSave().then(function (user) {
                 user.doComparePassword('somethingelse').then(function (result) {
                     expect(result).to.be.false;
@@ -328,8 +328,8 @@ describe('user model', function () {
     describe('find all', function () {
 
         beforeEach(function (done) {
-            var userOne = new UserBuilder().withDefaultValues().withEmail('aa@server.com').build();
-            var userTwo = new UserBuilder().withDefaultValues().withEmail('bb@server.com').build();
+            var userOne = new UserBuilder().defaults().email('aa@server.com').build();
+            var userTwo = new UserBuilder().defaults().email('bb@server.com').build();
             q.all([ userOne.doSave(), userTwo.doSave() ]).then(function () {
                 done();
             }).catch(done);

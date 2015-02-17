@@ -26,25 +26,25 @@ describe('user assembler', function () {
         });
 
         it('should contain first name', function () {
-            var user = new UserBuilder().withDefaultValues().withFirstName('Paul').build();
+            var user = new UserBuilder().defaults().firstName('Paul').build();
             var resource = assembler.toResource(user);
             expect(resource.firstName).to.equal('Paul');
         });
 
         it('should contain last name', function () {
-            var user = new UserBuilder().withDefaultValues().withLastName('Williams').build();
+            var user = new UserBuilder().defaults().lastName('Williams').build();
             var resource = assembler.toResource(user);
             expect(resource.lastName).to.equal('Williams');
         });
 
         it('should contain email', function () {
-            var user = new UserBuilder().withDefaultValues().withEmail('paul@atreides.com').build();
+            var user = new UserBuilder().defaults().email('paul@atreides.com').build();
             var resource = assembler.toResource(user);
             expect(resource.email).to.equal('paul@atreides.com');
         });
 
         it('should contain self link', function () {
-            var user = new UserBuilder().withDefaultValues().build();
+            var user = new UserBuilder().defaults().build();
             var resource = assembler.toResource(user);
             expect(resource.links.self).to.equal('http://localhost/api/users/' + user._id);
         });
@@ -67,8 +67,8 @@ describe('user assembler', function () {
 
         it('should contain all converted entities', function () {
             var users = [
-                new UserBuilder().withDefaultValues().build(),
-                new UserBuilder().withDefaultValues().build()
+                new UserBuilder().defaults().build(),
+                new UserBuilder().defaults().build()
             ];
             var resource = assembler.toResources(users);
             expect(resource.content).to.be.an('array');
@@ -77,8 +77,8 @@ describe('user assembler', function () {
 
         it('should contain self link', function () {
             var users = [
-                new UserBuilder().withDefaultValues().build(),
-                new UserBuilder().withDefaultValues().build()
+                new UserBuilder().defaults().build(),
+                new UserBuilder().defaults().build()
             ];
             var resource = assembler.toResources(users);
             expect(resource.links.self).to.equal('http://localhost/api/users');
