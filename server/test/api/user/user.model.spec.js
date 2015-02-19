@@ -7,7 +7,6 @@ var q              = require('q'),
     UserBuilder    = require('./user.model.builder'),
     ValidatorError = mongoose.Error.ValidatorError;
 
-
 describe('user model', function () {
 
     describe('first name', function () {
