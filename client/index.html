@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+    <!-- <base href="/"> -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Librarian</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="jspm_packages/github/fyockm/bootstrap-css-only@3.3.2/css/bootstrap.css"/>
+
+</head>
+<body>
+
+    <header id="header" ng-include="'app/core/layout/header/layout.header.html'"></header>
+
+    <div ng-bind="'test'"></div>
+
+
+    <script src="jspm_packages/system.js"></script>
+    <script src="jspm.conf.js"></script>
+    <script>
+        System.import('app/bootstrap').catch(console.error.bind(console));
+    </script>
+
+</body>
+</html>

@@ -3,7 +3,8 @@
 /**
  * module dependencies
  */
-var config       = require('./config'),
+var path         = require('path'),
+    config       = require('./config'),
     helmet       = require('helmet'),
     morgan       = require('morgan'),
     express      = require('express'),
@@ -59,7 +60,8 @@ function configureAuthentication (app) {
 }
 
 function configureStaticContent (app) {
-    app.use(express.static(__dirname + config.get('site')));
+    var client = path.normalize(__dirname + config.get('site'));
+    app.use(express.static(client));
 }
 
 module.exports = function () {

@@ -1,6 +1,7 @@
 
-# NodeJS
+# JS modules
 node_modules/
+jspm_packages/
 
 # IDEA
 .idea/
