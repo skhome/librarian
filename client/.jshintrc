@@ -1,4 +1,7 @@
 {
+  "node": true,
+  "browser": true,
+  "esnext": true,
   "camelcase": true,
   "curly": true,
   "eqeqeq": true,
@@ -19,6 +22,7 @@
   "maxcomplexity": 10,
   "maxlen": 120,
   "eqnull": true,
-  "browser": true,
-  "esnext": true
+  "globals": {
+    "angular": false
+  }
 }

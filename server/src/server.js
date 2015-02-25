@@ -43,6 +43,11 @@ mongodb(mongoConfig, function () {
     // register components
     require('./api/user')(app);
 
+    // needed for HTML5 History API
+    app.route('/*').get(function (request, response) {
+        response.redirect('/#' + request.originalUrl);
+    });
+
     app.listen(port, function () {
         logger.info(' Librarian %s started serving requests on port %s for environment %s.',
                     pkg.version.cyan,

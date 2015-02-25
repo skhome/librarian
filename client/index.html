@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <!-- <base href="/"> -->
+    <base href="/">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -9,14 +9,17 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="jspm_packages/github/fyockm/bootstrap-css-only@3.3.2/css/bootstrap.css"/>
+    <link rel="stylesheet" href="jspm_packages/github/dbtek/bootswatch-dist@3.3.2-slate/css/bootstrap.css"/>
+    <link rel="stylesheet" href="jspm_packages/npm/font-awesome@4.3.0/css/font-awesome.css"/>
 
 </head>
-<body>
+<body style="padding-top: 70px;">
 
-    <header id="header" ng-include="'app/core/layout/header/layout.header.html'"></header>
+    <header id="header">
+        <lib-navbar></lib-navbar>
+    </header>
 
-    <div ng-bind="'test'"></div>
+    <main ui-view class="container-fluid"></main>
 
 
     <script src="jspm_packages/system.js"></script>

@@ -1,8 +1,9 @@
 'use strict';
 
-import headerTemplate from './layout/header/layout.header.html!text';
+import onConfig from './config/config';
+
+import navigationDirective from './navigation/navigation.directive';
 
 export default angular.module('app.core', [])
-    .run(['$templateCache', function ($templateCache) {
-        $templateCache.put('app/core/layout/header/layout.header.html', headerTemplate);
-    }]);
+    .config(onConfig)
+    .directive('libNavbar', navigationDirective);
