@@ -19,7 +19,9 @@ module.exports = function (request) {
             },
             firstName: user.firstName,
             lastName: user.lastName,
-            email: user.email
+            email: user.email,
+            provider: user.provider,
+            authorities: user.authorities
         };
     };
 

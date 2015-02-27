@@ -6,7 +6,7 @@ var User = require('../../../src/api/user/user.model');
 module.exports = function () {
 
     var builder = this,
-        firstName, lastName, email, password, provider, authorities, avatar;
+        firstName, lastName, email, password, provider, authorities = [], avatar;
 
     builder.firstName = function (newFirstName) {
         firstName = newFirstName;
@@ -30,6 +30,11 @@ module.exports = function () {
 
     builder.provider = function (newProvider) {
         provider = newProvider;
+        return builder;
+    };
+
+    builder.authorities = function (newAuthorities) {
+        authorities = newAuthorities;
         return builder;
     };
 

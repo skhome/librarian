@@ -43,12 +43,23 @@ describe('user assembler', function () {
             expect(resource.email).to.equal('paul@atreides.com');
         });
 
+        it('should contain provider', function () {
+            var user = new UserBuilder().defaults().provider('local').build();
+            var resource = assembler.toResource(user);
+            expect(resource.provider).to.equal('local');
+        });
+
+        it('should contain authorities', function () {
+            var user = new UserBuilder().defaults().authorities([ 'USER' ]).build();
+            var resource = assembler.toResource(user);
+            expect(resource.authorities).to.contain('USER');
+        });
+
         it('should contain self link', function () {
             var user = new UserBuilder().defaults().build();
             var resource = assembler.toResource(user);
             expect(resource.links.self).to.equal('http://localhost/api/users/' + user._id);
         });
-
     });
 
     describe('collection resource', function () {
@@ -83,7 +94,6 @@ describe('user assembler', function () {
             var resource = assembler.toResources(users);
             expect(resource.links.self).to.equal('http://localhost/api/users');
         });
-
     });
 
     describe('entity', function () {
@@ -131,7 +141,5 @@ describe('user assembler', function () {
             var user = assembler.toEntity(resource);
             expect(user.password).to.equal('insecure');
         });
-
     });
-
 });

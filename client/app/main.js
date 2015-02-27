@@ -16,6 +16,7 @@ let mainModule = angular.module('app', [
     'ngMessages',
 
     'ui.router',
+    'ui.bootstrap',
     'restangular',
 
     // core modules
