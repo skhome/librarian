@@ -1,0 +1,37 @@
+{
+  "links": {
+    "self": "/api/users"
+  },
+  "content": [
+    {
+      "links": {
+        "self": "/api/users/1"
+      },
+      "firstName": "Jean-Luc",
+      "lastName": "Picard",
+      "email": "jean-luc.picard@starfleet.com",
+      "provider": "local",
+      "authorities": ["ADMIN"]
+    },
+    {
+      "links": {
+        "self": "/api/users/2"
+      },
+      "firstName": "William Thomas",
+      "lastName": "Riker",
+      "email": "william.t.rikerd@starfleet.com",
+      "provider": "local",
+      "authorities": ["ADMIN"]
+    },
+    {
+      "links": {
+        "self": "/api/users/3"
+      },
+      "firstName": "Deanna",
+      "lastName": "Troi",
+      "email": "deanna.troi@starfleet.com",
+      "provider": "local",
+      "authorities": ["USER"]
+    }
+  ]
+}

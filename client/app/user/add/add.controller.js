@@ -3,6 +3,8 @@
 class UserAddController {
 
     constructor ($modalInstance, UserResource) {
+        'ngInject';
+
         this.$modalInstance = $modalInstance;
         this.UserResource = UserResource;
         this.user = {};

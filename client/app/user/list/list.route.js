@@ -6,10 +6,10 @@ import template from './list.html!text';
  * Defines the route for managing users.
  *
  * @param $stateProvider router state provider
- *
- * @ngInject
  */
 function userListRoute ($stateProvider) {
+    'ngInject';
+
     $stateProvider
         .state('users', {
             url: '/users',

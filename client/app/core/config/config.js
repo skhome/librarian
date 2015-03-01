@@ -1,6 +1,14 @@
 'use strict';
 
+/**
+ *
+ * @param $locationProvider
+ * @param RestangularProvider
+ *
+ * @ngInject
+ */
 function onConfig ($locationProvider, RestangularProvider) {
+    'ngInject';
 
     // use HTML5 History API
     $locationProvider.html5Mode(true);

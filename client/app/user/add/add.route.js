@@ -12,6 +12,7 @@ import UserAddController from './add.controller';
  * @ngInject
  */
 function userAddRoute ($stateProvider) {
+    'ngInject';
 
     $stateProvider.state('users.add', {
         url: '/add',

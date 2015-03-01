@@ -3,6 +3,8 @@
 class UserListController {
 
     constructor (users) {
+        'ngInject';
+
         this.users = users;
     }
 

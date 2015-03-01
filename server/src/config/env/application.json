@@ -6,5 +6,5 @@
     "port": 80,
     "caching": true
   },
-  "site": "/../../../client"
+  "site": "/../../../build/dist"
 }

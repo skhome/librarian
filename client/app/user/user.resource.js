@@ -3,6 +3,8 @@
 class UserResource {
 
     constructor (Restangular) {
+        'ngInject';
+
         this.Restangular = Restangular;
     }
 
