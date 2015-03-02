@@ -12,6 +12,7 @@ var fs          = require('fs'),
     browser     = require('tiny-lr')(),
     httpProxy   = require('http-proxy'),
     changelog   = require('conventional-changelog'),
+    modRewrite  = require('connect-modrewrite'),
     runSequence = require('run-sequence'),
     browserSync = require('browser-sync');
 
@@ -116,8 +117,8 @@ function startBrowserSync (baseDir, files, browser) {
         server: {
             baseDir: baseDir,
             middleware: [
-                proxyMiddleware
-                // modRewrite([ '!\\.\\w+$ /index.html [L]' ]) // require for HTML5 mode
+                proxyMiddleware,
+                modRewrite([ '!\\.\\w+$ /index.html [L]' ]) // require for HTML5 mode
             ]
         },
         browser: browser
@@ -322,6 +323,14 @@ gulp.task('server:test', 'Run tests on server sources', [ 'server:hint' ], funct
 
 });
 
+gulp.task('watch', 'watch files for changes', function () {
+    gulp.watch([ paths.client.images, paths.client.fonts ], [ browserSync.reload ]);
+    gulp.watch([ paths.client.styles ], [ 'client:less' ]);
+    gulp.watch([ paths.client.scripts ], [ 'client:jshint', browserSync.reload ]);
+    gulp.watch([ paths.client.html.index, paths.client.html.templates ], [ 'client:htmlhint', browserSync.reload ]);
+});
+
+
 // =============================================
 //                MAIN TASKS
 // =============================================
@@ -330,8 +339,8 @@ gulp.task('server:test', 'Run tests on server sources', [ 'server:hint' ], funct
 //            DEVELOPMENT TASKS
 // ---------------------------------------------
 
-gulp.task('serve', 'Serve for the dev environment', function() {
-    startBrowserSync(['build/temp', 'client']);
+gulp.task('serve', 'Serve for the dev environment', [ 'client:less', 'watch' ], function () {
+    startBrowserSync([ 'build/temp', 'client' ]);
 });
 
 gulp.task('serve:dist', 'serve the production environment', [ 'build' ], function () {

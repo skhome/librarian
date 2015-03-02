@@ -1,21 +1,43 @@
 <div class="modal-header">
-    <button type="button" class="close" ng-click="vm.cancel()">×</button>
+    <button type="button" class="close" ng-click="vm.cancel()" aria-label="close"><span
+            aria-hidden="true">&times;</span></button>
     <h4 class="modal-title">Add User</h4>
 </div>
-<div class="modal-body">
-    <form class="form-horizontal" role="form" novalidate="novalidate">
-        <div class="row">
-            <div class="col-md-3">
-                <ul class="list-group">
-                    <li ui-sref-active="active" class="list-group-item">
-                        <a ui-sref="employees.add.account-details"><i class="fa fa-user fa-fw "></i>&nbsp;Account Details</a>
-                    </li>
-                    <li ui-sref-active="active" class="list-group-item">
-                        <a ui-sref="employees.add.account-settings"><i class="fa fa-cogs fa-fw "></i>&nbsp;Account Settings</a>
-                    </li>
-                </ul>
+<form name="userForm" class="form-horizontal" role="form" novalidate="novalidate" ng-submit="vm.save()">
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="firstname">Firstname</label>
+            <div class="col-md-9">
+                <input id="firstname" class="form-control" type="text" ng-model="vm.user.firstName" required="required"/>
             </div>
-            <div ui-view="modal"></div>
         </div>
-    </form>
-</div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="lastname">Lastname</label>
+            <div class="col-md-9">
+                <input id="lastname" class="form-control" type="text" ng-model="vm.user.lastName" required="required"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="email">Email</label>
+            <div class="col-md-9">
+                <input id="email" class="form-control" type="email" ng-model="vm.user.email" required="required"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="password">Password</label>
+            <div class="col-md-9">
+                <input id="password" class="form-control" type="password" ng-model="vm.user.password" required="required"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="confirm">Password Confirmation</label>
+            <div class="col-md-9">
+                <input id="confirm" class="form-control" type="password" ng-model="vm.user.confirmation" required="required"/>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" type="button" ng-click="vm.cancel()">Cancel</button>
+        <button class="btn btn-primary" type="submit" ng-disabled="!userForm.$valid">Save</button>
+    </div>
+</form>

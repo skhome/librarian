@@ -7,4 +7,4 @@ import 'angular-messages';
 import 'angular-ui-router';
 import 'angular-ui/bootstrap-bower/ui-bootstrap-tpls';
 import 'restangular';
-import 'lodash';
+import 'lodash/lodash';

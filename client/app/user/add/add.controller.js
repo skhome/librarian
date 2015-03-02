@@ -1,6 +1,11 @@
 'use strict';
 
-class UserAddController {
+/**
+ * Provides user interaction functionality for the user add modal dialog.
+ *
+ * @author Sascha Krüger
+ */
+export default class UserAddController {
 
     constructor ($modalInstance, UserResource) {
         'ngInject';
@@ -10,6 +15,17 @@ class UserAddController {
         this.user = {};
     }
 
-}
+    cancel () {
+        this.$modalInstance.dismiss('cancel');
+    }
 
-export default UserAddController;
+    save () {
+        var $modalInstance = this.$modalInstance;
+        this.UserResource
+            .create(this.user)
+            .then(function () {
+                $modalInstance.close();
+            });
+    }
+
+}

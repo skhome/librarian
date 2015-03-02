@@ -16,6 +16,9 @@ class UserResource {
         return this.Restangular.all('users').getList();
     }
 
+    create (user) {
+        return this.Restangular.all('users').post(user);
+    }
 }
 
 export default UserResource;
