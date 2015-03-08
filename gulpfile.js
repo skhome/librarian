@@ -9,6 +9,7 @@ var fs          = require('fs'),
     del         = require('del'),
     argv        = require('yargs').argv,
     gulp        = require('gulp'),
+    karma       = require('karma').server,
     browser     = require('tiny-lr')(),
     httpProxy   = require('http-proxy'),
     changelog   = require('conventional-changelog'),
@@ -266,7 +267,6 @@ gulp.task('client:extras', 'copy other project files into the `build/dist` direc
         .pipe(gulp.dest(paths.build.dist.basePath));
 });
 
-
 gulp.task('client:compile', 'compile all files', [ 'client:htmlhint', 'client:less', 'client:bundle' ], function () {
     var bundleFile = paths.build.temp.scripts + 'build.js';
 
@@ -299,6 +299,14 @@ gulp.task('client:compile', 'compile all files', [ 'client:htmlhint', 'client:le
         .pipe(size({ title: 'compile', showFiles: true }));
 });
 
+gulp.task('client:test', 'Run tests on client sources', [ 'client:jshint' ], function (done) {
+    process.chdir('client');
+    karma.start({
+        configFile: __dirname + '/client/karma.conf.js',
+        singleRun: true
+    }, done);
+});
+
 gulp.task('server:hint', 'Hint server JavaScripts files', function () {
     return gulp.src(paths.server.scripts)
         .pipe(jshint(paths.server.jshintrc))
@@ -320,7 +328,6 @@ gulp.task('server:test', 'Run tests on server sources', [ 'server:hint' ], funct
                 .pipe(istanbul.writeReports(options.istanbul.report))
                 .on('end', done);
         });
-
 });
 
 gulp.task('watch', 'watch files for changes', function () {
