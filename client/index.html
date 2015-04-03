@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width"/>
 
     <!-- build:css styles/main.min.css -->
-    <link rel="stylesheet" href="jspm_packages/github/dbtek/bootswatch-dist@3.3.2-slate/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="jspm_packages/github/dbtek/bootswatch-dist@paper/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="jspm_packages/npm/font-awesome@4.3.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../build/temp/styles/main.css"/>
     <!-- endbuild -->
@@ -26,8 +26,53 @@
         <lib-navbar></lib-navbar>
     </header>
 
-    <main class="container-fluid">
+    <main class="container">
+
+        <div id="banner" class="page-header">
+            <h1>Librarian</h1>
+            <p class="lead">Because knowledge matters</p>
+        </div>
+
+        <div class="list-group">
+            <a class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-2 col-sm-1">
+                        <div class="thumbnail">
+                            <img src="http://books.google.com/books/content?id=dwSfGQAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt="cover"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 col-sm-11">
+                        <h4 class="list-group-item-heading">Clean Code</h4>
+                        <p class="list-group-item-text">
+                            <strong>A Handbook of Agile Software Craftsmanship</strong><br/>
+                            by Robert C. Martin
+                        </p>
+                        <br/>
+                        <p class="list-group-item-text">Prentice-Hall PTR, 2009</p>
+                    </div>
+                </div>
+            </a>
+            <a class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-2 col-sm-1">
+                        <div class="thumbnail">
+                            <img src="http://books.google.com/books/content?id=VQlvAQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" alt="cover"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 col-sm-11">
+                        <h4 class="list-group-item-heading">The Clean Coder</h4>
+                        <p class="list-group-item-text">
+                            <strong>A Code of Conduct for Professional Programmers</strong>
+                            by Robert C. Martin
+                        </p>
+                        <br/>
+                        <p class="list-group-item-text">Personal Education, 2011</p>
+                    </div>
+                </div>
+            </a>
+        </div>
         <ui-view></ui-view>
+
     </main>
 
     <!-- build:js scripts/main.min.js -->

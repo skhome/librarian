@@ -4,10 +4,3 @@ node_js:
 
 services:
   - mongodb
-
-addons:
-  code_climate:
-    repo_token: 94ccde73586e69e1550f18f96924db4b842e3beca4e710ad302913f000b0a07c
-
-after_script:
-  - cat ./build/coverage/lcov.info | ./node_modules/.bin/codeclimate

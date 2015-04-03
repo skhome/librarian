@@ -14,9 +14,8 @@ System.config({
     "angular-mocks": "github:angular/bower-angular-mocks@1.3.14",
     "angular-ui-router": "github:angular-ui/ui-router@0.2.13",
     "angular-ui/bootstrap-bower": "github:angular-ui/bootstrap-bower@0.12.1",
-    "dbtek/bootswatch-dist": "github:dbtek/bootswatch-dist@3.3.2-slate",
+    "dbtek/bootswatch-dist": "github:dbtek/bootswatch-dist@paper",
     "font-awesome": "npm:font-awesome@4.3.0",
-    "fyockm/bootstrap-css-only": "github:fyockm/bootstrap-css-only@3.3.2",
     "json": "github:systemjs/plugin-json@0.1.0",
     "less": "github:aaike/jspm-less-plugin@0.0.4",
     "lodash/lodash": "github:lodash/lodash@3.3.1",
@@ -39,3 +38,4 @@ System.config({
     }
   }
 });
+
