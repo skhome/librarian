@@ -1,0 +1,22 @@
+<div class="list-group">
+    <a class="list-group-item" ng-repeat="book in shelfCtrl.books">
+        <div class="row">
+            <div class="col-xs-2 col-sm-1">
+                <div class="thumbnail thumbnail-left">
+                    <img ng-src="{{book.thumbnail}}" alt="cover"/>
+                </div>
+            </div>
+            <div class="col-xs-8 col-sm-10">
+                <h4 class="list-group-item-heading">{{::book.title}}</h4>
+                <p class="list-group-item-text">
+                    <strong>{{::book.subtitle}}</strong><br/>
+                    by {{::book.authors.join(',')}}<br/>
+                    {{::book.publishedDate}}
+                </p>
+            </div>
+            <div class="col-xs-2 col-sm-1">
+                <span class="label label-success">available</span>
+            </div>
+        </div>
+    </a>
+</div>

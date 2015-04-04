@@ -12,8 +12,8 @@ function onConfigTest($provide) {
 
 function onRunTest($httpBackend) {
     'ngInject';
-    $httpBackend.whenGET(/^\w+.*/).passThrough();
-    $httpBackend.whenPOST(/^\w+.*/).passThrough();
+    $httpBackend.whenGET(/^(?!\/api).*/).passThrough();
+    // $httpBackend.whenPOST(/^\w+.*/).passThrough();
 }
 
 export default angular.module('app.core.test', [])
